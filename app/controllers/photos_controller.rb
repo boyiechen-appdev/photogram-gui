@@ -42,6 +42,19 @@ class PhotosController < ApplicationController
 
     a_new_photo.save
 
-    redirect_to("/photos/"+a_new_photo.id.to_s)
+    redirect_to("/photos/" + a_new_photo.id.to_s)
+  end
+
+  # Started GET "/update_photo/785?input_image=https%3A%2F%2Frobohash.org%2Fmodieumvoluptate.png%3Fsize%3D300x300%26set%3Dset1&input_caption=try" for 172.225.24.108 at 2023-05-02 04:29:24 +0000
+  def update
+    the_id = params.fetch("modify_id")
+    matching_photos = Photo.where({ :id => the_id })
+    the_photo = matching_photos.at(0)
+    the_photo.image = params.fetch("input_image")
+    the_photo.caption = params.fetch("input_caption")
+
+    the_photo.save
+
+    redirect_to("/photos/"+the_id.to_s)
   end
 end
