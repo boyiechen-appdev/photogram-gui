@@ -55,6 +55,23 @@ class PhotosController < ApplicationController
 
     the_photo.save
 
-    redirect_to("/photos/"+the_id.to_s)
+    redirect_to("/photos/" + the_id.to_s)
+  end
+
+  def create_comment
+    # /insert_comment_record?input_photo_id=785&input_author_id=23&input_body=fewfw
+    input_photo_id = params.fetch("input_photo_id")
+    input_author_id = params.fetch("input_author_id")
+    input_body = params.fetch("input_body")
+
+    # the_photo = Photo.where({ :id => input_photo_id }).first
+    # the_photo.comment
+    a_new_comment = Comment.new
+    a_new_comment.photo_id = input_photo_id
+    a_new_comment.author_id = input_author_id
+    a_new_comment.body = input_body
+    a_new_comment.save
+
+    redirect_to("/photos/"+ input_photo_id.to_s)
   end
 end
