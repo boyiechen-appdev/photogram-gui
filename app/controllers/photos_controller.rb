@@ -6,16 +6,16 @@ class PhotosController < ApplicationController
   end
 
   def show
-    url_username = params.fetch("path_username")
+    url_id = params.fetch("path_id")
 
-    matching_usernames = User.where({ :username => url_username })
+    matching_photos = Photo.where({ :id => url_id })
 
-    @the_user = matching_usernames.first
+    @the_photo = matching_photos.first
 
-    if @the_user == nil
+    if @the_photo == nil
       redirect_to("/404")
     else
-      render({ :template => "user_templates/show.html.erb" })
+      render({ :template => "photo_templates/show.html.erb" })
     end
   end
 end
